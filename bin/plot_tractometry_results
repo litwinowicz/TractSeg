@@ -248,7 +248,13 @@ def plot_tractometry_with_pvalue(values, meta_data, bundles, selected_bundles, o
         if plot_3D_type != "none":
 
             if plot_3D_type == "metric":
-                metric = np.array([values[s][b_idx] for s in subjects_A + subjects_B]).mean(axis=0)
+                values_A = np.array([values[s][b_idx] for s in subjects_A])
+                values_B = np.array([values[s][b_idx] for s in subjects_B])
+
+                mean_A = values_A.mean(axis=0)
+                mean_B = values_B.mean(axis=0)
+
+                metric = mean_A - mean_B
             else:
                 # metric = pvalues  # use this code if you want to plot the pvalues instead of sig_areas
                 metric = sig_areas_0_1
